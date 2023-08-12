@@ -10,6 +10,8 @@
 //初始化，產生pakeage.json文件  
 3.輸入npm install express socket.io  
 4.輸入node server.js  
+5.連線測試：http://localhost:3000/ 
+  
 *其他人連線：  
 1.同區域網路或wifi環境，使用對方ip+檔案預設的port:3000  
 //查詢IP請開啟cmd輸入ipconfig，就可以找到IPv4 Address  
