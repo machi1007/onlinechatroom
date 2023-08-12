@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>線上聊天室</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div>
+    <label for="username">姓名：</label>
+    <input type="text" id="username" autocomplete="off" />
+  </div>
+  <div>目前在線的使用者：</div>
+  <ul id="user-list"></ul>
+  <ul id="messages"></ul>
+  <form id="chat-form">
+  <input id="input" autocomplete="off" />
+  <input type="file" id="file-input" />
+  <button type="submit">發送</button>
+</form>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+const socket = io();
+let isUploadingFile = false; // 用來標記是否正在處理檔案上傳
+const form = document.getElementById('chat-form');
+const input = document.getElementById('input');
+const messages = document.getElementById('messages');
+const userList = document.getElementById('user-list');
+const fileInput = document.getElementById('file-input');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const username = document.getElementById('username').value;
+  if (!username) {
+    alert('請輸入姓名');
+    return;
+  }
+
+  const inputValue = input.value;
+
+  if (inputValue) {
+    socket.emit('join', username);
+    socket.emit('chat message', inputValue);
+    input.value = '';
+  }
+});
+
+fileInput.addEventListener('change', () => {
+  const username = document.getElementById('username').value;
+  if (!username) {
+    alert('請輸入姓名');
+    return;
+  }
+
+  const file = fileInput.files[0]; // 取得上傳的檔案
+
+  if (file && !isUploadingFile) {
+    isUploadingFile = true;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const fileData = {
+        name: file.name,
+        type: file.type,
+        data: event.target.result,
+      };
+      const fileLink = document.createElement('a');
+      fileLink.href = fileData.data;
+      fileLink.download = fileData.name;
+      fileLink.textContent = `${username} 上傳了一個檔案: ${fileData.name}`;
+
+      const fileLi = document.createElement('li');
+      fileLi.appendChild(fileLink);
+
+      messages.appendChild(fileLi);
+
+      socket.emit('file upload', fileData);
+      isUploadingFile = false;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+    socket.on('user connected', (users) => {
+      userList.innerHTML = '';
+      users.forEach((user) => {
+        const li = document.createElement('li');
+        li.textContent = user;
+        userList.appendChild(li);
+      });
+    });
+
+    socket.on('chat message', (data) => {
+      const li = document.createElement('li');
+      li.textContent = `${data.username}: ${data.message}`;
+      messages.appendChild(li);
+    });
+
+socket.on('file uploaded', (data) => {
+  if (data.username === document.getElementById('username').value) {
+    // 自己傳送的檔案，顯示檔案傳送成功訊息
+    const successMessageLi = document.createElement('li');
+    successMessageLi.textContent = `檔案傳送成功`;
+    messages.appendChild(successMessageLi);
+  } else {
+    // 其他人傳送的檔案，顯示上傳了一個檔案訊息
+    const fileLink = document.createElement('a');
+    fileLink.href = data.file.data;
+    fileLink.download = data.file.name;
+    fileLink.textContent = `${data.username} 上傳了一個檔案: ${data.file.name}`;
+    
+    const fileLi = document.createElement('li');
+    fileLi.appendChild(fileLink);
+    
+    messages.appendChild(fileLi);
+  }
+});
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#user-list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+#user-list li {
+  display: inline-block;
+  margin-right: 10px;
+  color: #888;
+}
+
+#messages {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#messages li {
+  margin-bottom: 5px;
+}
+
+#messages li:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+#chat-form {
+  margin-top: 10px;
+}
+
+#input {
+  width: 80%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#input:focus {
+  outline: none;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#file {
+  margin-top: 10px;
+}
+
+#file-label {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#file-label:hover {
+  background-color: #0056b3;
+}
