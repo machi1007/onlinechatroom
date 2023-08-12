@@ -17,7 +17,7 @@
 //查詢IP請開啟cmd輸入ipconfig，就可以找到IPv4 Address  
 2.不同區域網路或wifi，使用Hamachi連線後，輸入對應虛擬網路的IP即可。  
 
-【範例】
+【範例】  
 *補充1(自己電腦連線server)：http://localhost:3000/  
 *補充2(相同網路連線server)：http://192.168.0.001:3000/  
 *補充3(不同網路連線server)：http://25.23.7.121:3000/  
