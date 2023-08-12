@@ -5,12 +5,12 @@
 *簡易操作流程：  
 1.安裝node.js  
 2.開啟cmd到指定路徑  
-//使用cd+(空格)+指定路徑，切換資料夾位置，若在D槽則輸入D:
+//使用cd+(空格)+指定路徑，切換資料夾位置，若在D槽則輸入D:  
 3.輸入npm init  
 //初始化，產生pakeage.json文件  
-3.輸入npm install express socket.io  
-4.輸入node server.js  
-5.連線測試：http://localhost:3000/ 
+4.輸入npm install express socket.io  
+5.輸入node server.js  
+6.連線測試：http://localhost:3000/ 
   
 *其他人連線：  
 1.同區域網路或wifi環境，使用對方ip+檔案預設的port:3000  
